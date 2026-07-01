@@ -500,8 +500,13 @@ export default {
             .eq(0)
             .trigger('fakefocus');
 
-        // focus on element
-        pageEl.focus();
+        // Focusing the field-list group container on iOS Safari causes it to
+        // render extra blank space inside the div, creating a layout shift when
+        // the user first taps a radio button (tap lands in wrong position).
+        // goToTarget() already focuses the first input, so skip this for field-list groups.
+        if (!pageEl.classList.contains('or-appearance-field-list')) {
+            pageEl.focus();
+        }
 
         pageEl.scrollIntoView();
     },
